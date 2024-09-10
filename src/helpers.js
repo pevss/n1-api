@@ -15,4 +15,16 @@ const getJSON = async function (url) {
     };
 };
 
-module.exports = { getJSON }
+const deleteFrom = function (collection, id) {
+    try {
+        const idToBeDeleted = collection.findIndex(item => item.id === id);
+
+        if (!idToBeDeleted) throw new Error (`Não foi possível encontrar nenhum registro com o id de ${id} dentro de ${collection}.`);
+
+        collection.splice(1, idToBeDeleted);
+    } catch (err) {
+        throw err;
+    };
+};
+
+module.exports = { getJSON, deleteFrom }
