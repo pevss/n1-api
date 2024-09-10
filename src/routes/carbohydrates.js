@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { API_URL } = require("../config");
 const { getJSON } = require("../helpers");
+const history = require("../database/history");
 
 router.get("/:food", async (req, res) => {
     try {
@@ -18,12 +19,16 @@ router.get("/:food", async (req, res) => {
             });
         };
 
+        const data = {
+            food,
+            carbohydrates
+        };
+
+        history.push(data);
+
         res.status(200).send({
             status: "success",
-            data: {
-                food,
-                carbohydrates
-            },
+            data,
         });
     } catch (err) {
         res.status(400).send({
