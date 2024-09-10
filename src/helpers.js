@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { API_URL, API_KEY } = require("./config");
+const { API_KEY } = require("./config");
 
 const getJSON = async function (url) {
     try {
