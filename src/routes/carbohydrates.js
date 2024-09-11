@@ -12,16 +12,10 @@ router.get("/:food", async (req, res) => {
 		const autoincrementId = history.at(-1)?.id + 1 || 1;
 
 		const response = await getJSON(`${API_URL}?query=${food}`);
-		const { carbohydrates_total_g: carbohydrates = null } =
-			response.data?.at(-1) || {};
+		const { carbohydrates_total_g: carbohydrates = null } = response.data?.at(-1) || {};
 
 		if (!carbohydrates) {
-			res.status(404).send({
-				message:
-					"Não foi possível encontrar um alimento com esse nome. Tente novamente :)",
-			});
-
-			return;
+			throw new Error("Não foi possível encontrar um alimento com esse nome. Tente novamente :)");
 		}
 
 		const data = {
